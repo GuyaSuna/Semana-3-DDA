@@ -1,0 +1,93 @@
+﻿@page "/Turnos"
+@using Ej1_Semana3.Services
+@using Ej1_Semana3.Models
+@rendermode InteractiveServer
+@inject TurnoService TurnoService
+
+<h3>Turnos</h3>
+<EditForm Model="Turno" OnValidSubmit="AgregarTurno"> 
+    <DataAnnotationsValidator/>
+
+    <label> Nombre </label>
+    <InputText @bind-Value="Turno.NombreMascota" />
+    <ValidationMessage For="(() => Turno.NombreMascota)" />
+
+
+        <label> Responsable </label>
+        <InputText @bind-Value="Turno.Responsable" />
+        <ValidationMessage For="(() => Turno.Responsable)" />
+
+        <label> Servicio </label>
+        <InputSelect @bind-Value="Turno.ServicioSolicitado">
+            <option value="Corte de Pelo"> Corte de pelo </option>
+            <option value="Baño"> Baño </option>
+            <option value="Corte de uñas"> Corte de uñas </option>
+        </InputSelect>
+        <ValidationMessage For="(() => Turno.ServicioSolicitado)" />
+
+        <label> Confirmado </label>
+        <InputCheckbox @bind-Value="Turno.Confirmado" />
+        <ValidationMessage For="(() => Turno.Confirmado)" />
+
+        <button type="submit"> Agregar </button>
+</EditForm>
+
+@if (modificando)
+{
+    <button onclick="Limpiar"> Cancelar Edicion </button>
+}
+
+
+    @foreach (var Turno in TurnoService.GetAllTurnos())
+    {
+        <div>
+        <p>
+            @Turno.Id -
+            @Turno.NombreMascota -
+            @Turno.Responsable -
+            @Turno.ServicioSolicitado -
+            @Turno.Confirmado 
+        </p>   
+        <button onclick="() => Seleccionar(Turno)">Editar</button>
+        <button onclick="Borrar">Borrar </button>
+        </div>
+    }
+
+@code {
+
+    private Turno Turno = new();
+
+    private bool modificando = false;
+
+    private void AgregarTurno()
+    {
+
+        TurnoService.AgregarTurno(Turno);
+
+    }
+
+    private void Borrar()
+    {
+
+    }
+
+    private void Seleccionar(Turno t)
+    {
+        Turno = new()
+        {
+            Id = t.Id,
+            NombreMascota = t.NombreMascota,
+            Responsable = t.Responsable,
+            ServicioSolicitado = t.ServicioSolicitado,
+            Confirmado = t.Confirmado
+        };
+
+        modificando = true;
+    }
+
+    private void Limpiar()
+    {
+        Turno = new();
+        modificando = false;
+    }
+}

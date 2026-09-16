@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "s06bHKkfeHs=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\nahue\\source\\repos\\Ej1-Semana3\\Ej1-Semana3\\Ej1-Semana3.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nahue\\.nuget\\packages\\microsoft.aspnetcore.app.internal.assets\\10.0.12\\microsoft.aspnetcore.app.internal.assets.10.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}
